@@ -30,6 +30,7 @@ export function analyzeUrl3(url: string): Record<string, string> {
   const reg = /(?<=\?)(.*?)(?=#|$)/;
   const search = url.match(reg)?.[0] || "";
   const params = new URLSearchParams(search)
+  // es2019
   return Object.fromEntries(params.entries())
 }
 
