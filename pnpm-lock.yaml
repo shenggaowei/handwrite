@@ -14,18 +14,24 @@ importers:
       '@babel/preset-env':
         specifier: ^7.23.9
         version: 7.23.9(@babel/core@7.23.9)
+      '@types/javascript-state-machine':
+        specifier: ^2.4.6
+        version: 2.4.6
       '@types/jest':
         specifier: ^29.5.12
         version: 29.5.12
       babel-jest:
         specifier: ^29.7.0
         version: 29.7.0(@babel/core@7.23.9)
+      javascript-state-machine:
+        specifier: ^3.1.0
+        version: 3.1.0
       jest:
         specifier: ^29.7.0
-        version: 29.7.0
+        version: 29.7.0(@types/node@20.11.19)
       ts-jest:
         specifier: ^29.1.2
-        version: 29.1.2(@babel/core@7.23.9)(babel-jest@29.7.0)(jest@29.7.0)(typescript@5.3.3)
+        version: 29.1.2(@babel/core@7.23.9)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.23.9))(jest@29.7.0(@types/node@20.11.19))(typescript@5.3.3)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -751,6 +757,9 @@ packages:
   '@types/istanbul-reports@3.0.4':
     resolution: {integrity: sha512-pk2B1NWalF9toCRu6gjBzR69syFjP4Od8WRAX+0mmf9lAjCRicLOWc+ZrxZHx/0XRjotgkF9t6iaMJ+aXcOdZQ==}
 
+  '@types/javascript-state-machine@2.4.6':
+    resolution: {integrity: sha512-ERPYa5Hbyz250YNAAVdDSbrGtDPphr7jvj/rVv17YRcW/Ze+GBUqb47Hr/GF23SzZ/L0wzn51Ro8bjtUQYjRJQ==}
+
   '@types/jest@29.5.12':
     resolution: {integrity: sha512-eDC8bTvT/QhYdxJAulQikueigY5AsdBRH2yDKW3yveW7svY3+DzN84/2NUgkw10RTiJbWqZrTtoGVdYlvFJdLw==}
 
@@ -1142,6 +1151,9 @@ packages:
   istanbul-reports@3.1.7:
     resolution: {integrity: sha512-BewmUXImeuRk2YY0PVbxgKAysvhRPUQE0h5QRM++nVWyubKGV0l8qQ5op8+B2DOmwSe63Jivj0BjkPQVf8fP5g==}
     engines: {node: '>=8'}
+
+  javascript-state-machine@3.1.0:
+    resolution: {integrity: sha512-BwhYxQ1OPenBPXC735RgfB+ZUG8H3kjsx8hrYTgWnoy6TPipEy4fiicyhT2lxRKAXq9pG7CfFT8a2HLr6Hmwxg==}
 
   jest-changed-files@29.7.0:
     resolution: {integrity: sha512-fEArFiwf1BpQ+4bXSprcDc3/x4HSzL4al2tozwVpDFpsxALjLYdyiIK4e5Vz66GQJIbXJ82+35PtysofptNX2w==}
@@ -2640,6 +2652,8 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-report': 3.0.3
 
+  '@types/javascript-state-machine@2.4.6': {}
+
   '@types/jest@29.5.12':
     dependencies:
       expect: 29.7.0
@@ -2841,7 +2855,7 @@ snapshots:
     dependencies:
       browserslist: 4.23.0
 
-  create-jest@29.7.0:
+  create-jest@29.7.0(@types/node@20.11.19):
     dependencies:
       '@jest/types': 29.6.3
       chalk: 4.1.2
@@ -3042,6 +3056,8 @@ snapshots:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.1
 
+  javascript-state-machine@3.1.0: {}
+
   jest-changed-files@29.7.0:
     dependencies:
       execa: 5.1.1
@@ -3074,13 +3090,13 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
-  jest-cli@29.7.0:
+  jest-cli@29.7.0(@types/node@20.11.19):
     dependencies:
       '@jest/core': 29.7.0
       '@jest/test-result': 29.7.0
       '@jest/types': 29.6.3
       chalk: 4.1.2
-      create-jest: 29.7.0
+      create-jest: 29.7.0(@types/node@20.11.19)
       exit: 0.1.2
       import-local: 3.1.0
       jest-config: 29.7.0(@types/node@20.11.19)
@@ -3098,7 +3114,6 @@ snapshots:
       '@babel/core': 7.23.9
       '@jest/test-sequencer': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.11.19
       babel-jest: 29.7.0(@babel/core@7.23.9)
       chalk: 4.1.2
       ci-info: 3.9.0
@@ -3118,6 +3133,8 @@ snapshots:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
+    optionalDependencies:
+      '@types/node': 20.11.19
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -3199,7 +3216,7 @@ snapshots:
       jest-util: 29.7.0
 
   jest-pnp-resolver@1.2.3(jest-resolve@29.7.0):
-    dependencies:
+    optionalDependencies:
       jest-resolve: 29.7.0
 
   jest-regex-util@29.6.3: {}
@@ -3337,12 +3354,12 @@ snapshots:
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
-  jest@29.7.0:
+  jest@29.7.0(@types/node@20.11.19):
     dependencies:
       '@jest/core': 29.7.0
       '@jest/types': 29.6.3
       import-local: 3.1.0
-      jest-cli: 29.7.0
+      jest-cli: 29.7.0(@types/node@20.11.19)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -3606,13 +3623,11 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
-  ts-jest@29.1.2(@babel/core@7.23.9)(babel-jest@29.7.0)(jest@29.7.0)(typescript@5.3.3):
+  ts-jest@29.1.2(@babel/core@7.23.9)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.23.9))(jest@29.7.0(@types/node@20.11.19))(typescript@5.3.3):
     dependencies:
-      '@babel/core': 7.23.9
-      babel-jest: 29.7.0(@babel/core@7.23.9)
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.7.0
+      jest: 29.7.0(@types/node@20.11.19)
       jest-util: 29.7.0
       json5: 2.2.3
       lodash.memoize: 4.1.2
@@ -3620,6 +3635,10 @@ snapshots:
       semver: 7.6.0
       typescript: 5.3.3
       yargs-parser: 21.1.1
+    optionalDependencies:
+      '@babel/core': 7.23.9
+      '@jest/types': 29.6.3
+      babel-jest: 29.7.0(@babel/core@7.23.9)
 
   type-detect@4.0.8: {}
 
