@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      window.addEventListener(
+        "error",
+        (error) => {
+          console.log("捕获到异常：", error);
+        },
+        true
+      );
+      window.addEventListener("unhandledrejection", (error) => {
+        console.log("捕获到promise异常：", error);
+      });
+      const promise1 = new Promise((resolve, reject) => {
+        JSON.parse("");
+        resolve();
+      });
+      promise1.then(() => {
+        console.log("promise1 resolved");
+      });
+    </script>
+    <img src="https://yun.tuia.cn/image/kkk.png" />
+    <script src="https://yun.tuia.cn/foundnull.js"></script>
+    <link href="https://yun.tuia.cn/foundnull.css" rel="stylesheet" />
+  </body>
+</html>
