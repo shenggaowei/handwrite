@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      // 设计稿按照 750 来做
+      (function () {
+        var view = document.querySelector('meta[name="viewport"]');
+        // 直接获取设备的DPR
+        var targetScale = 1 / window.devicePixelRatio;
+        view.content = `initial-scale=${targetScale},user-scalable=no,minimum-scale=${targetScale},maximum-scale=${targetScale}`;
+      })();
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        display: flex;
+        width: 750px;
+        height: 50px;
+        background-color: #ccc;
+      }
+
+      .container div {
+        width: 93.75px;
+        height: 50px;
+      }
+
+      .container div:nth-child(1) {
+        background-color: red;
+      }
+
+      .container div:nth-child(2) {
+        background-color: yellow;
+      }
+
+      .container div:nth-child(3) {
+        background-color: blue;
+      }
+
+      .container div:nth-child(4) {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>123</div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </body>
+</html>

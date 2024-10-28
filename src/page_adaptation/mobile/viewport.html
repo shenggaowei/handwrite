@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      (function () {
+        const view = document.querySelector('meta[name="viewport"]');
+        const targetWidth = 375;
+        const deviceWidth = document.documentElement.clientWidth;
+        const targetScale = deviceWidth / targetWidth;
+        view.content = `initial-scale=${targetScale}, maximum-scale=${targetScale}, minimum-scale=${targetScale}, user-scalable=no`;
+      })();
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        display: flex;
+        width: 375px;
+        height: 50px;
+      }
+
+      .container div {
+        width: 93.75px;
+        height: 50px;
+      }
+
+      .container div:nth-child(1) {
+        background-color: red;
+      }
+
+      .container div:nth-child(2) {
+        background-color: yellow;
+      }
+
+      .container div:nth-child(3) {
+        background-color: blue;
+      }
+
+      .container div:nth-child(4) {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>123</div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </body>
+</html>
