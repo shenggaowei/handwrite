@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      // window.requestAnimationFrame() 方法会告诉浏览器你希望执行一个动画。它要求浏览器在下一次重绘之前，调用用户提供的回调函数。
+      function createRAFInterval(callback, interval) {
+        let last = performance.now();
+
+        function frame(now) {
+          // 已经过的时间
+          if (now - last >= interval) {
+            last = now;
+            callback();
+          }
+          //备注：若你想在浏览器下次重绘之前继续更新下一帧动画，那么回调函数自身必须再次调用 requestAnimationFrame()。requestAnimationFrame() 是一次性的。
+          requestAnimationFrame(frame);
+        }
+
+        requestAnimationFrame(frame);
+      }
+
+      // 用法：间隔 10 秒（10000ms）
+      createRAFInterval(() => {
+        console.log("触发一次:", new Date().toLocaleTimeString());
+      }, 1000);
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>requestAnimationFrame</title>
+    <style>
+      #box {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+  </body>
+  <script>
+    const element = document.getElementById("box");
+    let start, previousTimeStamp;
+    let done = false;
+
+    // timestamp 上一帧渲染的结束时间
+    function step(timestamp) {
+      if (start === undefined) {
+        start = timestamp;
+      }
+      console.log("timestamp", timestamp, start);
+      const elapsed = timestamp - start;
+
+      if (previousTimeStamp !== timestamp) {
+        // 这里使用 Math.min() 确保元素在恰好位于 200px 时停止运动
+        const count = Math.min(0.1 * elapsed, 200);
+        element.style.transform = `translateX(${count}px)`;
+        if (count === 200) done = true;
+      }
+
+      if (elapsed < 2000) {
+        // 2 秒之后停止动画
+        previousTimeStamp = timestamp;
+        if (!done) {
+          window.requestAnimationFrame(step);
+        }
+      }
+    }
+
+    window.requestAnimationFrame(step);
+  </script>
+</html>
