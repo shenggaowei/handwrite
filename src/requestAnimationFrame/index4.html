@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>rAF Interval Resume Test</title>
+  </head>
+  <body>
+    <h1>rAF Interval 恢复测试 Demo</h1>
+    <p>打开控制台，切换到其它标签页几秒钟，再切回来。</p>
+
+    <script>
+      let last = 0;
+      const interval = 5000; // 5s
+      let lastCallbackTime = 0;
+
+      function frame(now) {
+        //console.log("rAF fired | now =", Math.round(now));
+
+        if (now - last >= interval) {
+          last = now;
+          console.log(
+            "%cCALLBACK FIRED! dt = " + Math.round(now - lastCallbackTime) + "ms",
+            "color: red; font-weight: bold;"
+          );
+          lastCallbackTime = now;
+        }
+
+        requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    </script>
+  </body>
+</html>

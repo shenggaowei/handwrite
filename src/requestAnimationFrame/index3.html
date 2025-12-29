@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>rAF Resume Test</title>
+  </head>
+  <body>
+    <h1>requestAnimationFrame 恢复测试 Demo</h1>
+    <p>打开控制台，切换到其它 tab，等几秒，再切回来。</p>
+
+    <script>
+      let last = performance.now();
+
+      function frame(now) {
+        const dt = now - last;
+        last = now;
+
+        console.log("rAF fired | dt = " + Math.round(dt) + " ms");
+
+        requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    </script>
+  </body>
+</html>
