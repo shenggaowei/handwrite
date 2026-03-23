@@ -2,35 +2,50 @@ class _Promise {
   constructor(fn) {
     fn(this.resolve, this.reject);
   }
-  state = "unfulfilled";
+  state = "pending";
   resolveData = null;
   rejectData = null;
   resolveFn = null;
   rejectFn = null;
+
   resolve = (data) => {
     this.state = "fulfilled";
     this.resolveData = data;
-    this.then(this.resolveFn);
   };
+
   reject = (error) => {
-    this.state = "failed";
+    this.state = "rejected";
     this.rejectData = error;
-    this.catch(this.rejectFn);
   };
+
   then = (resolveFn) => {
     this.resolveFn = resolveFn;
     if (this.state === "fulfilled") {
-      resolveFn(this.resolveData);
+      queueMicrotask(() => {
+        resolveFn(this.resolveData);
+      })
     }
     return this;
   };
+
   catch = (rejectFn) => {
     this.rejectFn = rejectFn;
-    if (this.state === "failed") {
-      rejectFn(this.rejectData);
+    if (this.state === "rejected") {
+      queueMicrotask(() => {
+        rejectFn(this.rejectData);
+      });
     }
     return this;
   };
 }
+
+console.log("start");
+let p = new _Promise((resolve) => {
+  resolve("success");
+})
+p.then((data) => {
+  console.log(data);
+});
+console.log("end");
 
 module.exports = _Promise;
