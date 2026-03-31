@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="//cdn.rawgit.com/satazor/SparkMD5/master/spark-md5.min.js"></script>
+    <title>大文件上传</title>
+  </head>
+  <body>
+    <input id="input" type="file" />
+  </body>
+  <script>
+    const oInput = document.getElementById("input");
+
+    oInput.onchange = (e) => {
+      console.log(e.target.files);
+      // file 是 blob,是类文件的数组，要通过 fileReader 来读取文件的二进制内容 
+      const file = oInput.files[0];
+      if (!file) {
+        return;
+      }
+      uploadFile(file)
+    };
+
+    function hash(chunks) {
+      const spark = new SparkMD5();
+      return new Promise((resolve, reject) => {
+        function _read(i) {
+          if (i >= chunks.length) {
+            resolve(spark.end())
+            return;
+          }
+          const blob = chunks[i];
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const bytes = e.target.result; // 读取到的字节数组
+            spark.append(bytes);
+            _read(i + 1);
+          };
+          reader.readAsArrayBuffer(blob);
+        }
+        _read(0);
+      });
+    }
+
+    function createChunks(file, chunkSize) {
+      const result = [];
+      for (let i = 0; i < file.size; i += chunkSize) {
+        result.push(file.slice(i, i + chunkSize));
+      }
+      return result;
+    }
+
+    function uploadChunk(chunk, index, fileHash) {
+        const formData = new FormData()
+        formData.append('file', chunk);
+        formData.append('index', index);
+        formData.append('fileHash', fileHash)
+        return fetch('/api/upload-chunk', {
+            method: 'POST',
+            body: formData
+        })
+    }
+
+    async function uploadFile(file) {
+      const chunks = createChunks(file, 1 * 1024);
+      const fileHash = await hash(chunks)
+      await Promise.all(chunks.map((chunk, index) => uploadChunk(chunk, index, fileHash)))
+      await fetch('/api/merge-chunks', {
+        method: 'POST',
+        body: JSON.stringify({ fileHash, total: chunks.length }),
+        headers: { 'Content-Type': 'application/json' }
+      })
+    }
+  </script>
+</html>
